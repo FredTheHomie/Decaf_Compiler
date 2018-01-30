@@ -26,20 +26,26 @@ VOID: 'void';
 COMMA: ',';
 EOL: ';';
 OR: '|';
+DOUBLE_OR: '||';
 ADD: '+';
 MINUS: '-';
 MULTIPLY: '*';
+DIVIDE: '/';
+MODULUS: '%';
 LESS_THAN: '<';
 LESS_THAN_OR_EQUAL: '<=';
 GREATER_THAN: '>';
+GREATER_THAN_OR_EQUAL: '>=';
+EQUAL: '==';
 NOT_EQUAL: '!=';
 AND: '&&';
+NEGATION: '!';
 LSQUARE: '[';
 RSQUARE: ']';
 ASSIGN: '=';
 LBRACKET: '(';
 RBRACKET: ')';
-
+UNDER: '_';
 
 // These two rules deal with characters that have special meaning in Decaf - again, what others?
 LCURLY : '{';
@@ -50,12 +56,15 @@ DOT: '.';
 UPPERCASE_LETTERS: 'A'..'Z';
 LOWERCASE_LETTERS: 'a'..'z';
 NUMBERS: '0'..'9';
+HEX: '0x';
+HEX_DIGITS: 'a'..'f' | 'A'..'F';
+
 
 // This says an identifier is a sequence of one or more alphabetic characters
 // Decaf is a little more sophisticated than this.
 ID : 
-  (LOWERCASE_LETTERS | UPPERCASE_LETTERS | '_')
-  (LOWERCASE_LETTERS | UPPERCASE_LETTERS | '_' | NUMBERS)+;
+  (LOWERCASE_LETTERS | UPPERCASE_LETTERS | UNDER)
+  (LOWERCASE_LETTERS | UPPERCASE_LETTERS | UNDER | NUMBERS)+;
 
 // This rule simply ignores (skips) any space or newline characters
 WS_ : (' ' | '\n' | '\t') -> skip;
