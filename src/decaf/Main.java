@@ -171,10 +171,6 @@ public class Main {
                                 case DecafLexer.STRING:
                                     type = " STRING";
                                     break;
-                                case DecafLexer.NOTESC:
-                                    type = " NOTESC";
-                                    break;
-
                         }
                             System.out.println (token.getLine() + type + " " + text);
                         }
