@@ -12,6 +12,8 @@
 package decaf;
 
 import java.io.*;
+
+import com.sun.tools.javac.code.Scope;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.*;
 
@@ -32,6 +34,7 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+
 		try {
             CLI.parse (args, new String[0]);
             
@@ -153,12 +156,6 @@ public class Main {
                                 case DecafLexer.DOT:
                                     type = " DOT";
                                     break;
-                                case DecafLexer.UPPERCASE_LETTERS:
-                                    type = " UPPERCASE_LETTERS";
-                                    break;
-                                case DecafLexer.LOWERCASE_LETTERS:
-                                    type = " LOWERCASE_LETTERS";
-                                    break;
                                 case DecafLexer.WS_:
                                     type = " WS_";
                                     break;
@@ -193,8 +190,15 @@ public class Main {
 	                String formatted = listener.toString();
 	                System.out.println(formatted);
                 }
+            } else if (CLI.target == CLI.INTER) {
+                DecafLexer lexer = new DecafLexer(antlrIOS);
+                CommonTokenStream tokens = new CommonTokenStream(lexer);
+                DecafParser parser = new DecafParser(tokens);
+                ParseTree tree = parser.program();
+                ScopeListener listener = new ScopeListener();
+                ParseTreeWalker.DEFAULT.walk(listener, tree);
+
             }
-            
         } catch(Exception e) {
             // print the error:
             System.out.println(CLI.infile+" "+e);

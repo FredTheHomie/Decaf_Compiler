@@ -55,25 +55,14 @@ RCURLY : '}';
 
 DOT: '.';
 
-
-UPPERCASE_LETTERS: 'A'..'Z';
-LOWERCASE_LETTERS: 'a'..'z';
-ALPHA: (UPPERCASE_LETTERS | LOWERCASE_LETTERS | UNDER);
-
-DIGIT: '0'..'9';
-HEX: '0X';
-ALPHA_NUMB: (ALPHA | NUMBERS);
-
-HEX_DIGITS: 'a'..'f' | 'A'..'F' | DIGIT;
-
-NUMBERS: DIGIT+ | '0x' HEX_DIGITS+;
-
 // This says an identifier is a sequence of one or more alphabetic characters
 // Decaf is a little more sophisticated than this.
 ID : 
   (LOWERCASE_LETTERS | UPPERCASE_LETTERS | UNDER)
   (LOWERCASE_LETTERS | UPPERCASE_LETTERS | UNDER | NUMBERS)*;
 
+
+NUMBERS: DIGIT+ | '0x' HEX_DIGITS+;
 
 // This rule simply ignores (skips) any space or newline characters
 WS_ : (' ' | '\n' | '\t') -> skip;
@@ -99,3 +88,11 @@ fragment
 ESC :  '\\' ('n' | '"'| '\'' | 't' | '\\');
 fragment
 NOTESC: ~('\n' | '"'| '\'' | '\t' | '\\');
+fragment
+UPPERCASE_LETTERS: 'A'..'Z';
+fragment
+LOWERCASE_LETTERS: 'a'..'z';
+fragment
+DIGIT: '0'..'9';
+fragment
+HEX_DIGITS: 'a'..'f' | 'A'..'F' | DIGIT;
